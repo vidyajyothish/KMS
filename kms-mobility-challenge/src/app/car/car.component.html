@@ -1,0 +1,79 @@
+
+<div class="container container-padding">
+<div class="row v-middle">
+    <div class="col-sm-6 pull-left">
+        <h1 class="mt-10 heading ml-5">Cars</h1>
+    </div>
+    <div class="col-sm-6 pull-right">
+        <button class="btn-add btn btn-success" data-bs-toggle="modal" data-bs-target="#addCarModal">Add Car</button>
+    </div>
+</div>
+<div class="">
+    <div class="table-responsive">
+        <table mat-table [dataSource]="dataSource"
+            class="">
+
+            <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Brand">
+                <th mat-header-cell *matHeaderCellDef> Brand </th>
+                <td mat-cell *matCellDef="let element"> {{element.Brand}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Model">
+                <th mat-header-cell *matHeaderCellDef> Model </th>
+                <td mat-cell *matCellDef="let element"> {{element.Model}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Navigation">
+                <th mat-header-cell *matHeaderCellDef> Navigation </th>
+                <td mat-cell *matCellDef="let element"> {{element.Navigation}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div></div>
+<div class="modal fade" id="addCarModal" tabindex="-1" role="dialog" aria-labelledby="addCarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form [formGroup]="addCarForm" (ngSubmit)="onSubmit()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title heading" id="addCarModalLabel">Add New Car</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <!-- <span aria-hidden="true">&times;</span> -->
+          </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="form-group">
+            <label class="mb-1" for="brand">Brand:</label>
+            <input type="text"  required formControlName="brand" (keypress)="clearError()" id="brand"
+            maxlength="150" class="form-control mb-2">
+            <div *ngIf="showMsg" class="alert alert-danger">
+              Brand is required.
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="mb-1" for="model">Model:</label>
+            <input type="text" formControlName="model" (keypress)="clearError()" class="form-control mb-2" id="model">
+            <div *ngIf="showModelMsg" class="alert alert-danger">
+              Model is required.
+          </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label><input formControlName="navigation" value="false" type="checkbox"> Navigation</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit"  class="btn btn-success btn-add">Save</button>
+        </div>
+      
+      </div>
+      </form>
+    </div>
+  </div>
